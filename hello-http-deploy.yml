@@ -23,5 +23,15 @@ spec:
         envFrom:
           - configMapRef:
               name: hello-http
-        resources: {}
-status: {}
+        readinessProbe:
+          httpGet:
+            path: /helathz
+            port: 80
+          periodSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /code/500
+            port: 80
+          periodSeconds: 15
+          failureThreshold: 2
