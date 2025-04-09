@@ -17,5 +17,24 @@ spec:
       containers:
       - image: nginx:1.26
         name: nginx
+        volumeMounts:
+          - name: data
+            mountPath: /usr/share/nginx/html
+          - name: nginx
+            mountPath: /etc/nginx/conf.d
       - image: php:8.2-fpm
         name: php
+        volumeMounts:
+          - name: data
+            mountPath: /var/www/html
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /data/site
+            type: Directory
+
+        - name: nginx
+          hostPath:
+            path: /data/nginx-conf
+            type: Directory
