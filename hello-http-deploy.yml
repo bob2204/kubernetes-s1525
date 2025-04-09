@@ -25,7 +25,7 @@ spec:
               name: hello-http
         readinessProbe:
           httpGet:
-            path: /helathz
+            path: /healthz
             port: 80
           periodSeconds: 5
           failureThreshold: 3
