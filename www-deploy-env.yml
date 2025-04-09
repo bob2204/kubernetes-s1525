@@ -44,3 +44,12 @@ spec:
             port: 80
           periodSeconds: 10
           failureThreshold: 2
+        volumeMounts:
+          - name: data
+            mountPath: /usr/share/nginx/html
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /data
+            type: Directory
