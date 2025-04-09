@@ -20,3 +20,7 @@ spec:
         env:
           - name: FORMATION
             value: Kubernetes
+          - name: PODIPD
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
