@@ -29,3 +29,7 @@ spec:
               configMapKeyRef:
                 name: www
                 key: JOURS
+        envFrom:
+          - configMapRef:
+              name: www
+
