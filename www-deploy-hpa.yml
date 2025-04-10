@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: www
+  name: www
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: www
+  template:
+    metadata:
+      labels:
+        app: www
+    spec:
+      containers:
+      - image: nginx:1.24
+        name: nginx
+        volumeMounts:
+          - name: data
+            mountPath: /usr/share/nginx/html
+            subPath: site
+        resources:
+          limits:
+            cpu: 10m
+
+      volumes:
+        - name: data
+          nfs:
+            server: 172.18.0.1
+            path: /
