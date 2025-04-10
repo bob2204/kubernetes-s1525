@@ -20,7 +20,9 @@ spec:
       containers:
       - image: busybox
         name: busybox
-        resources: {}
+        resources:
+          limits:
+            cpu: 250m
         command:
           - sh
           - -c
