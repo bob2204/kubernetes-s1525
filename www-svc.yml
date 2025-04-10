@@ -4,6 +4,7 @@ metadata:
   labels:
     app: www
   name: www
+  namespace: stage
 spec:
   ports:
   - port: 80
