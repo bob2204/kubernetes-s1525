@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: nginx:1.23
+  labels:
+    app: www
+    env: dev
+  name: www
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: www
+  template:
+    metadata:
+      labels:
+        app: www
+    spec:
+      containers:
+      - image: nginx:1.24
+        name: nginx
+        volumeMounts:
+          - name: data
+            mountPath: /usr/share/nginx/html
+            subPath: site
+          - name: nginx
+            mountPath: /etc/nginx/conf.d
+        envFrom:
+          - configMapRef:
+              name: www
+      - image: php:8.2-fpm
+        name: php
+        volumeMounts:
+          - name: data
+            mountPath: /var/www/html
+            subPath: site
+
+      volumes:
+        - name: data
+          nfs:
+            server: 172.18.0.1
+            path: /
+
+        - name: nginx
+          configMap:
+            name: nginx
